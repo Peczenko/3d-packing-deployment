@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-env
+  namespace: packing
+data:
+  SERVER_FORWARD_HEADERS_STRATEGY: framework

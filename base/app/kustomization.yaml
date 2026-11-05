@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - secrets/cluster-secret-store.yaml
+  - secrets/api-secrets.yaml
+  - secrets/temporal-db.yaml
+  - temporal-postgres/postgres.yaml
+  - temporal
+  - temporal-ui/deployment.yaml
+  - api/deployment.yaml
+  - frontend/deployment.yaml
+  - worker/deployment.yaml
+  - gateway/gateway.yaml
+  - network-policies
+configMapGenerator:
+  - name: azure-postgres-ca
+    namespace: packing
+    files:
+      - ca.pem=certs/azure-postgres-ca.pem

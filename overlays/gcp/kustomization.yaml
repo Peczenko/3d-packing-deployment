@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/app
+  - redirects.yaml
+images:
+  - name: packing-backend
+    newName: ghcr.io/peczenko/3d-packing-backend
+    newTag: 1.4.0
+  - name: packing-worker
+    newName: ghcr.io/peczenko/3d-packing-backend/worker
+    newTag: 1.4.0
+  - name: packing-frontend
+    newName: ghcr.io/furby73/3d-packing-frontend
+    newTag: demo-86a1ddb
+patches:
+  - path: gateway.yaml
+  - path: routes.yaml
+  - path: api.yaml
+  - path: frontend.yaml
+  - path: worker.yaml
+  - path: temporal-namespace-job.yaml

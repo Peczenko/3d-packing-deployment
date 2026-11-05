@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: temporal-config
+  namespace: packing
+data:
+  DB: postgres12
+  POSTGRES_SEEDS: temporal-postgres
+  DB_PORT: "5432"
+  DBNAME: temporal_local
+  VISIBILITY_DBNAME: temporal_local_visibility
+  NUM_HISTORY_SHARDS: "4"
+  BIND_ON_IP: 0.0.0.0
+  SQL_MAX_CONNS: "10"
+  SQL_MAX_IDLE_CONNS: "10"
+  SQL_VIS_MAX_CONNS: "5"
+  SQL_VIS_MAX_IDLE_CONNS: "5"
+  DYNAMIC_CONFIG_FILE_PATH: /etc/temporal/dynamicconfig/dynamic.yaml
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: temporal-dynamicconfig
+  namespace: packing
+data:
+  dynamic.yaml: |
+    limit.maxIDLength:
+      - value: 255
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: temporal-scripts
+  namespace: packing
+data:
+  schema.sh: |
+    set -eu
+    export SQL_PASSWORD="$POSTGRES_PWD"
+    sql() {
+      temporal-sql-tool --plugin "$DB" --endpoint "$POSTGRES_SEEDS" --port "$DB_PORT" --user "$POSTGRES_USER" "$@"
+    }
+    until sql --database "$DBNAME" setup-schema -v 0.0; do
+      sleep 2
+    done
+    sql --database "$DBNAME" update-schema -d /etc/temporal/schema/postgresql/v12/temporal/versioned
+    sql --database "$VISIBILITY_DBNAME" setup-schema -v 0.0
+    sql --database "$VISIBILITY_DBNAME" update-schema -d /etc/temporal/schema/postgresql/v12/visibility/versioned
+  namespace.sh: |
+    set -eu
+    until temporal operator cluster health --address "$TEMPORAL_ADDRESS"; do
+      sleep 3
+    done
+    temporal operator namespace describe --namespace "$TEMPORAL_NAMESPACE" --address "$TEMPORAL_ADDRESS" \
+      || temporal operator namespace create --namespace "$TEMPORAL_NAMESPACE" --retention 14d --address "$TEMPORAL_ADDRESS"

@@ -1,0 +1,23 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: api
+  namespace: packing
+spec:
+  parentRefs:
+    - name: packing
+      sectionName: websecure
+  hostnames:
+    - 3dpacking.dev
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: frontend
+  namespace: packing
+spec:
+  parentRefs:
+    - name: packing
+      sectionName: websecure
+  hostnames:
+    - 3dpacking.dev
