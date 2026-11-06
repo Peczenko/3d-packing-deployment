@@ -6,13 +6,13 @@ resources:
 images:
   - name: packing-backend
     newName: ghcr.io/peczenko/3d-packing-backend
-    newTag: 1.4.0
+    newTag: 1.5.0
   - name: packing-worker
     newName: ghcr.io/peczenko/3d-packing-backend/worker
-    newTag: 1.4.0
+    newTag: 1.5.0
   - name: packing-frontend
     newName: ghcr.io/furby73/3d-packing-frontend
-    newTag: demo-57854df
+    newTag: demo-90e2de1
 patches:
   - path: gateway.yaml
   - path: routes.yaml

@@ -83,7 +83,7 @@ spec:
               cpu: 250m
               memory: 512Mi
             limits:
-              memory: 1Gi
+              memory: 2Gi
           volumeMounts:
             - name: azure-postgres-ca
               mountPath: /etc/azure-postgres
