@@ -6,10 +6,10 @@ resources:
 images:
   - name: packing-backend
     newName: ghcr.io/peczenko/3d-packing-backend
-    newTag: 1.6.0
+    newTag: 1.7.0
   - name: packing-worker
     newName: ghcr.io/peczenko/3d-packing-backend/worker
-    newTag: 1.6.0
+    newTag: 1.7.0
   - name: packing-frontend
     newName: ghcr.io/furby73/3d-packing-frontend
     newTag: demo-fdd97c3
