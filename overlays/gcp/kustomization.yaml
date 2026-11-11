@@ -12,7 +12,7 @@ images:
     newTag: 1.7.0
   - name: packing-frontend
     newName: ghcr.io/furby73/3d-packing-frontend
-    newTag: demo-fdd97c3
+    newTag: demo-2c41581
 patches:
   - path: gateway.yaml
   - path: routes.yaml
