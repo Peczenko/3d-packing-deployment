@@ -18,7 +18,7 @@ api ──► Azure Postgres     api, worker ──► Azure Blob     External S
 
 ## Deploying
 
-Change `newTag` in `overlays/gcp/kustomization.yaml` and push to `main`. Flux polls every minute and rolls the Deployments. Backend images come from releases of `Peczenko/3d-packing-backend`, the frontend's from the `demo` branch of `furby73/3d-packing-frontend`.
+Change `newTag` in `overlays/gcp/kustomization.yaml` and push to `main`. Flux polls every minute and rolls the Deployments. Backend images come from releases of `Peczenko/3d-packing-backend`, the frontend's from the `main` branch of `furby73/3d-packing-frontend`.
 
 ## Not in this repository
 
