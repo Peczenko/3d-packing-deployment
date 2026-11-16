@@ -17,5 +17,5 @@ spec:
               cpu: "1"
               memory: 5Gi
             limits:
-              cpu: "1"
+              cpu: "2"
               memory: 8Gi
